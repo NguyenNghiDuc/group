@@ -1,9 +1,8 @@
+## 🌐 Xem trực tiếp trang web  
+👉 *[Nhấn để mở web](https://nguyennghiduc.github.io/group/)*
 
-- 👉 [Trang chủ (index.html)](v.html)
-- 👉 [File CSS (style.css)](b.css)
+## 📄 Xem file HTML  
+- [index.html](index.html)
 
----
-
-## 🖼 Giao diện minh họa
-
-(chèn ảnh demo nếu bạn muốn)
+## 🎨 Xem file CSS  
+- [style.css](style.css)
