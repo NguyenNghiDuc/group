@@ -1,2 +1,9 @@
-- [Trang chủ](https://nguyennghiduc.github.io/Group/html/v.html)
-- [Đi dạo quanh khu phố](https://nguyennghiduc.github.io/Group/css/b.css)
+
+- 👉 [Trang chủ (index.html)](v.html)
+- 👉 [File CSS (style.css)](b.css)
+
+---
+
+## 🖼 Giao diện minh họa
+
+(chèn ảnh demo nếu bạn muốn)
