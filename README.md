@@ -2,7 +2,9 @@
 👉 *[Nhấn để mở web](https://nguyennghiduc.github.io/group/)*
 
 ## 📄 Xem file HTML  
-- [index.html](index.html)
+- [Filetong.html](filetong.html)
+- [File1.html](file1.html)
+- [File2.html](file2.html)
 
 ## 🎨 Xem file CSS  
 - [style.css](style.css)

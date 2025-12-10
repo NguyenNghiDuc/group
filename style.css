@@ -1,58 +1,106 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    padding: 20px;
+/* style.css - đặt trong cùng thư mục với index.html
+   hoặc trong folder css/ rồi sửa link trong HTML */
+
+:root{
+    --bg: #f7f8fb;
+    --card: #ffffff;
+    --border: #dcdfe6;
+    --green: #4CAF50;
+    --red: #e24b4b;
+    --text: #222;
 }
 
-.container {
-    max-width: 700px;
-    margin: auto;
-    background: #fff;
+*{box-sizing: border-box;}
+body{
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: var(--bg);
+    color: var(--text);
     padding: 20px;
+    line-height: 1.4;
+}
+
+.container{
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    padding: 22px;
     border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    border: 1px solid var(--border);
 }
 
-h2 {
-    text-align: center;
+h1{
+    margin: 0 0 16px 0;
+    font-size: 22px;
 }
 
-.question {
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
+/* question box */
+.question-box{
+    border: 2px solid var(--border);
+    padding: 14px;
     border-radius: 8px;
+    margin-bottom: 14px;
+    transition: background .18s, border-color .18s;
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
 }
 
-.answers label {
-    display: block;
-    margin: 5px 0;
+/* khi đúng/sai */
+.question-box.correct{
+    border-color: var(--green);
+    background: #ecffed;
+}
+.question-box.wrong{
+    border-color: var(--red);
+    background: #fff0f0;
+}
+
+.q-text{
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+/* danh sách đáp án */
+.answers { display: flex; flex-direction: column; gap: 6px; }
+.answer-label{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     cursor: pointer;
+    user-select: none;
+}
+.answer-label input[type="radio"]{
+    width: 16px;
+    height: 16px;
 }
 
-button {
-    width: 100%;
-    padding: 12px;
+/* text màu cho explain */
+.explain{
     margin-top: 10px;
-    font-size: 16px;
-    background: #4CAF50;
-    color: white;
+    font-size: 15px;
+}
+
+/* text đúng/sai */
+.correct-text{ color: var(--green); font-weight: 700; }
+.wrong-text{ color: var(--red); font-weight: 700; }
+.tick{ color: var(--green); margin-right:6px; }
+.cross{ color: var(--red); margin-right:6px; }
+
+/* footer */
+.footer{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+}
+#result{
+    font-weight: 700;
+}
+#resetBtn{
+    background: #1976d2;
+    color: #fff;
     border: none;
-    border-radius: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
     cursor: pointer;
 }
-
-button:hover {
-    background: #45a049;
-}
-
-#result {
-    margin-top: 20px;
-    font-size: 20px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.correct {
-    color: green;
-}
+#resetBtn:hover{ opacity: 0.95; }

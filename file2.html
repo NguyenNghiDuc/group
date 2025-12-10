@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Bài Trắc Nghiệm</h2>
+
+    <div id="quiz"></div>
+
+    <button onclick="checkAnswers()">Xem kết quả</button>
+    <div id="result"></div>
+</div>
+
+<script>
+
+const questions_4_1 = [
+{
+ id: "4.1.1",
+ question: "Sở giao dịch chứng khoán Tp.HCM và Hà Nội chính thức đi vào hoạt động:",
+ answers:{A:"Năm 1997 và 1998",B:"Năm 1995 và 1998",C:"Năm 2000 và 2005",D:"Cả A, B, C đều đúng"},
+ correct:"C"
+},
+{
+ id: "4.1.2",
+ question: "Thời gian giao dịch chứng khoán tại Tp.HCM và Hà Nội:",
+ answers:{A:"8h30–14h30",B:"8h30–15h00",C:"9h00–14h30",D:"9h00–15h00"},
+ correct:"D"
+},
+{
+ id: "4.1.3",
+ question: "Giao dịch nào không thực hiện tại HNX:",
+ answers:{A:"Khớp lệnh định kỳ mở cửa",B:"Khớp lệnh định kỳ đóng cửa",C:"Khớp lệnh liên tục",D:"Giao dịch thỏa thuận"},
+ correct:"B"
+},
+{
+ id: "4.1.4",
+ question: "Loại lệnh nào không thực hiện tại HNX:",
+ answers:{A:"LO",B:"MP",C:"ATO",D:"ATC"},
+ correct:"C"
+},
+{
+ id: "4.1.5",
+ question: "Giá tham chiếu ngày thứ 6 =:",
+ answers:{A:"Giá đóng cửa chiều thứ 5",B:"Giá kết thúc buổi sáng thứ 5",C:"Cả A,B đúng",D:"Cả A,B sai"},
+ correct:"A"
+},
+{
+ id: "4.1.6",
+ question: "2 công ty đầu tiên niêm yết trên TTGDCK TP.HCM:",
+ answers:{A:"Vingroup, HAGL",B:"REE và SAM",C:"Vinamilk và Bibica",D:"VCB và ACB"},
+ correct:"B"
+},
+{
+ id: "4.1.7",
+ question: "Tỷ lệ sở hữu của NĐT nước ngoài tại NHTM:",
+ answers:{A:"30%–50%",B:"Tối đa 30%",C:"Tối đa 50%",D:"Cả A,B,C đúng"},
+ correct:"B"
+},
+{
+ id: "4.1.8",
+ question: "CTCK được thực hiện nghiệp vụ:",
+ answers:{A:"Môi giới, lưu ký",B:"Tư vấn và bảo lãnh",C:"Quản lý quỹ và tự doanh",D:"Cả A,B,C đúng"},
+ correct:"D"
+},
+{
+ id: "4.1.9",
+ question: "Quy định về văn phòng giao dịch CTCK:",
+ answers:{A:"Có thể trong Sở giao dịch",B:"Tự do lựa chọn địa điểm",C:"Cả A,B đúng",D:"Cả A,B sai"},
+ correct:"D"
+},
+{
+ id: "4.1.10",
+ question: "Biên độ giá HOSE và HNX:",
+ answers:{A:"±5% & ±7%",B:"±7% & ±10%",C:"±7% & ±15%",D:"±10% & ±15%"},
+ correct:"B"
+},
+{
+ id: "4.1.11",
+ question: "Biên độ lần đầu cho cổ phiếu HOSE:",
+ answers:{A:"±5%",B:"±10%",C:"±15%",D:"±20%"},
+ correct:"C"
+},
+{
+ id: "4.1.12",
+ question: "Cơ cấu quản lý cao nhất của HOSE:",
+ answers:{A:"HĐQT, Ban Kiểm Soát, TGĐ",B:"GĐ, Ban kiểm soát, PGĐ",C:"GĐ, PGĐ, Kế toán",D:"Cả A,B,C sai"},
+ correct:"A"
+},
+{
+ id: "4.1.13",
+ question: "Ký hiệu giao dịch niêm yết tại HNX:",
+ answers:{A:"HOSE",B:"VN30",C:"HNX",D:"UPCOM"},
+ correct:"C"
+},
+{
+ id: "4.1.14",
+ question: "Ký hiệu giao dịch niêm yết tại HOSE:",
+ answers:{A:"HOSE",B:"VN30",C:"HNX",D:"UPCOM"},
+ correct:"A"
+},
+{
+ id: "4.1.15",
+ question: "Cổ phiếu chất lượng kém tại HOSE ký hiệu:",
+ answers:{A:"HOSE",B:"VN30",C:"HNX",D:"Cả A,B,C sai"},
+ correct:"D"
+},
+{
+ id: "4.1.16",
+ question: "Cổ phiếu vốn hóa lớn nhất được ký hiệu:",
+ answers:{A:"HOSE, HNX",B:"VN30, HNX30",C:"HNX, HOSE",D:"UPCOM, VNALL"},
+ correct:"B"
+},
+{
+ id: "4.1.17",
+ question: "Thời gian giao dịch HOSE/HNX:",
+ answers:{A:"8h30–11h30;13h–14h45",B:"Như A",C:"9h00–11h30;13h–15h00",D:"Như C"},
+ correct:"D"
+},
+{
+ id: "4.1.18",
+ question: "Tạm ngừng giao dịch khi:",
+ answers:{A:"Biến động bất thường",B:"LNST âm 2 năm & tách/gộp",C:"Không giao dịch 120 ngày & sáp nhập",D:"Cả A,B,C đúng"},
+ correct:"D"
+},
+{
+ id: "4.1.19",
+ question: "Chậm CBTT báo cáo tài chính kiểm toán bao nhiêu ngày sẽ tạm dừng UPCoM:",
+ answers:{A:"30 ngày",B:"45 ngày",C:"50 ngày",D:"60 ngày"},
+ correct:"B"
+},
+{
+ id: "4.1.20",
+ question: "Chức năng của Sở giao dịch chứng khoán:",
+ answers:{A:"Thị trường thứ cấp TPCP hiện hữu",B:"Thị trường sơ cấp cho TPCP lần đầu",C:"Cả A,B đúng",D:"Cả A,B sai"},
+ correct:"A"
+}
+];
+
+function loadQuiz() {
+        const quizDiv = document.getElementById("quiz");
+        let html = "";
+
+        questions_5.forEach((q, i) => {
+            html += `
+                <div class="question" id="qBox${i}">
+                    <p><b>Câu ${i + 1}:</b> ${q.question}</p>
+                    ${Object.keys(q.answers).map(letter => `
+                        <label>
+                            <input type="radio" name="q${i}" value="${letter}" onclick="check(${i}, '${letter}')">
+                            ${letter}. ${q.answers[letter]}
+                        </label><br>
+                    `).join("")}
+                    <div id="answerKey${i}" class="answer-key"></div>
+                </div>
+            `;
+        });
+
+        quizDiv.innerHTML = html;
+    }
+
+    loadQuiz();
+
+    // ===== CHECK NGAY KHI CLICK =====
+    function check(index, selected) {
+        const q = questions_5[index];
+        const box = document.getElementById(`qBox${index}`);
+        const key = document.getElementById(`answerKey${index}`);
+
+        // Xóa class cũ
+        box.classList.remove("correct", "wrong");
+
+        if (selected === q.correct) {
+            box.classList.add("correct");
+            key.innerHTML = "✔ Chính xác!";
+        } else {
+            box.classList.add("wrong");
+            key.innerHTML = `✘ Sai! Đáp án đúng là: <b>${q.correct}. ${q.answers[q.correct]}</b>`;
+        }
+    }
+</script>
+
+</body>
+</html>

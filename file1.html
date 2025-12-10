@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bài Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Bài Trắc Nghiệm</h2>
+
+    <div id="quiz"></div>
+
+    <button onclick="checkAnswers()">Xem kết quả</button>
+    <div id="result"></div>
+</div>
+
+<script>
+
+const questions_5 = [
+{
+ id: "5.1.1",
+ question: "Công ty chứng khoán là:",
+ answers:{A:"Một loại doanh nghiệp, thương mại, sản xuất",B:"Loại hình kinh doanh đơn giản nhỏ lẻ",C:"Cả A, B đều đúng",D:"Cả A, B đều sai"},
+ correct:"D"
+},
+{
+ id: "5.1.2",
+ question: "Công ty chứng khoán được tổ chức dưới hình thức:",
+ answers:{A:"Tổ hợp dịch vụ tài chính tổng hợp",B:"Dịch vụ tài chính chuyên biệt kinh doanh chứng khoán",C:"Cả A, B đều đúng",D:"Cả A, B đều sai"},
+ correct:"B"
+},
+{
+ id: "5.1.3",
+ question: "Công ty chứng khoán được tổ chức kinh doanh dưới hình thức nào:",
+ answers:{A:"Kinh doanh chứng khoán, kinh doanh tiền tệ, dịch vụ tài chính",B:"Kinh doanh chứng khoán, kinh doanh tiền tệ",C:"Kinh doanh chứng khoán, dịch vụ tài chính",D:"Kinh doanh chứng khoán, kinh doanh tiền ảo"},
+ correct:"C"
+},
+{
+ id: "5.1.4",
+ question: "Chủ thể nào sau đây không có hình thức kinh doanh của công ty chứng khoán:",
+ answers:{A:"Ngân hàng thương mại cổ phần Sài Gòn Thương Tín",B:"Công ty chứng khoán Sài Gòn",C:"Công ty chứng khoán Ngân hàng Quân Đội (MBS)",D:"Công ty cổ phần Thế Giới Di Động"},
+ correct:"D"
+},
+{
+ id: "5.1.5",
+ question: "Ngân hàng thương mại kinh doanh chứng khoán được tổ chức dưới hình thức nào:",
+ answers:{A:"Thành lập công ty con hạch toán độc lập",B:"Kinh doanh chứng khoán song song với các dịch vụ tài chính khác",C:"Cả A, B đều đúng",D:"Cả A, B đều sai"},
+ correct:"A"
+},
+{
+ id: "5.1.6",
+ question: "Loại hình kinh doanh chứng khoán tại các NHTM Việt Nam có mấy hình thức:",
+ answers:{A:"01 hình thức",B:"02 hình thức",C:"03 hình thức",D:"04 hình thức"},
+ correct:"B"
+},
+{
+ id: "5.1.7",
+ question: "Hiện nay tại Việt Nam, mô hình công ty chứng khoán:",
+ answers:{A:"Đa năng",B:"Chuyên doanh",C:"Phức hợp đa năng và chuyên doanh",D:"Cả A,B,C đúng"},
+ correct:"B"
+},
+{
+ id: "5.1.8",
+ question: "Nghiệp vụ nào KHÔNG được thực hiện tại công ty chứng khoán Việt Nam:",
+ answers:{A:"Môi giới chứng khoán",B:"Tự kinh doanh chứng khoán",C:"Bảo lãnh chứng khoán",D:"Bán khống chứng khoán"},
+ correct:"D"
+},
+{
+ id: "5.1.9",
+ question:"Nghiệp vụ nhằm mục đích sinh lời cho chính công ty:",
+ answers:{A:"Môi giới chứng khoán",B:"Tự doanh chứng khoán",C:"Bảo lãnh chứng khoán",D:"Tư vấn đầu tư"},
+ correct:"B"
+},
+{
+ id: "5.1.10",
+ question:"Nghiệp vụ yêu cầu số vốn cao nhất:",
+ answers:{A:"Môi giới",B:"Tự doanh",C:"Bảo lãnh phát hành",D:"Tư vấn đầu tư"},
+ correct:"C"
+},
+{
+ id: "5.1.11",
+ question:"Nghiệp vụ yêu cầu số vốn thấp nhất:",
+ answers:{A:"Môi giới",B:"Tự doanh",C:"Bảo lãnh phát hành",D:"Tư vấn đầu tư"},
+ correct:"D"
+},
+{
+ id: "5.1.12",
+ question:"Số vốn môi giới và tự doanh lần lượt:",
+ answers:{A:"20 tỷ, 50 tỷ",B:"20 tỷ, 100 tỷ",C:"25 tỷ, 100 tỷ",D:"25 tỷ, 150 tỷ"},
+ correct:"C"
+},
+{
+ id: "5.1.13",
+ question:"Môi giới + Tự doanh + Bảo lãnh phát hành, vốn lần lượt:",
+ answers:{A:"125 tỷ, 100 tỷ",B:"125 tỷ, 125 tỷ",C:"125 tỷ, 145 tỷ",D:"125 tỷ, 165 tỷ"},
+ correct:"D"
+},
+{
+ id: "5.1.14",
+ question:"Môi giới + Bảo lãnh + Tư vấn, số vốn lần lượt:",
+ answers:{A:"165 tỷ, 5 tỷ",B:"170 tỷ, 5 tỷ",C:"180 tỷ, 10 tỷ",D:"190 tỷ, 10 tỷ"},
+ correct:"A"
+},
+{
+ id: "5.1.15",
+ question:"CTCK không được tự doanh khi:",
+ answers:{A:"Đầu tư vào công ty sở hữu 15% vốn điều lệ CTCK",B:"Đầu tư quá 20% cổ phiếu tổ chức niêm yết",C:"Đầu tư 10% tổ chức không niêm yết",D:"Đầu tư vào tổ chức sở hữu 10% vốn CTCK"},
+ correct:"A"
+},
+{
+ id: "5.1.16",
+ question:"Tổng vốn yêu cầu tự doanh + tự doanh phái sinh:",
+ answers:{A:"100 tỷ",B:"300 tỷ",C:"500 tỷ",D:"700 tỷ"},
+ correct:"C"
+},
+{
+ id: "5.1.17",
+ question:"Tổng vốn môi giới + môi giới phái sinh:",
+ answers:{A:"25 tỷ",B:"125 tỷ",C:"625 tỷ",D:"825 tỷ"},
+ correct:"B"
+},
+{
+ id: "5.1.18",
+ question:"Vốn điều lệ khi phát hành chứng quyền có bảo đảm:",
+ answers:{A:"100 tỷ",B:"1000 tỷ",C:"10.000 tỷ",D:"Cả A,B,C sai"},
+ correct:"B"
+},
+{
+ id: "5.1.19",
+ question:"Mô hình CTCK đa năng một phần tại VN:",
+ answers:{A:"Anh",B:"Đức",C:"Mỹ",D:"Pháp"},
+ correct:"A"
+},
+{
+ id: "5.1.20",
+ question:"Mô hình CTCK đa năng hoàn toàn:",
+ answers:{A:"Anh",B:"Đức",C:"Mỹ",D:"Pháp"},
+ correct:"B"
+},
+{
+ id: "5.1.21",
+ question: "Nhận định nào sau đây là sai về công ty chứng khoán:",
+ answers:{A:"Công ty chứng khoán là trung gian tài chính",B:"Công ty chứng khoán là tổ chức kinh doanh vô điều kiện",C:"Công ty chứng khoán có sản phẩm đa dạng",D:"Công ty chứng khoán bị kiểm soát hoạt động"},
+ correct:"B"
+},
+{
+ id: "5.1.22",
+ question: "Đặc điểm trung gian giao dịch thể hiện rõ trong nghiệp vụ nào:",
+ answers:{A:"Môi giới chứng khoán",B:"Tự doanh chứng khoán",C:"Bảo lãnh chứng khoán",D:"Tư vấn đầu tư"},
+ correct:"A"
+},
+{
+ id: "5.1.23",
+ question: "Công ty chứng khoán là trung gian giao dịch của:",
+ answers:{A:"Thị trường tập trung",B:"Thị trường phi tập trung",C:"Cả A,B đúng",D:"Cả A,B sai"},
+ correct:"C"
+},
+{
+ id: "5.1.24",
+ question: "Thanh toán giao dịch qua:",
+ answers:{A:"Ngân hàng",B:"Tiền mặt trực tiếp",C:"Hệ thống lưu ký của thành viên lưu ký",D:"A và C"},
+ correct:"D"
+},
+{
+ id: "5.1.25",
+ question: "Tham gia mua bán của khách hàng làm:",
+ answers:{A:"Rủi ro tăng",B:"Rủi ro giảm",C:"Không ảnh hưởng",D:"Cả 3 đều sai"},
+ correct:"A"
+},
+{
+ id: "5.1.26",
+ question: "Top thị phần môi giới theo HoSE:",
+ answers:{A:"HSC, VCSC, VNDS, MBS, SSI",B:"VCSC, VNDS, MBS, SSI, HSC",C:"MBS, SSI, HSC, VCSC, VNDS",D:"SSI, HSC, VCSC, VNDS, MBS"},
+ correct:"D"
+},
+{
+ id: "5.1.27",
+ question: "Cơ cấu tổ chức CTCK chia thành mấy khối:",
+ answers:{A:"2 khối",B:"3 khối",C:"4 khối",D:"5 khối"},
+ correct:"B"
+},
+{
+ id: "5.1.28",
+ question: "Vai trò của CTCK tại Việt Nam:",
+ answers:{A:"02",B:"03",C:"04",D:"05"},
+ correct:"C"
+},
+{
+ id: "5.1.29",
+ question: "Vai trò cơ chế giá của CTCK:",
+ answers:{A:"Tăng giá mua, giảm giá bán để lời",B:"Điều tiết ổn định thị trường",C:"Thao túng giá",D:"Giao dịch nội gián"},
+ correct:"B"
+},
+{
+ id: "5.1.30",
+ question: "Muốn hủy lệnh chờ khớp dùng:",
+ answers:{A:"ATO",B:"ATC",C:"SO",D:"MP"},
+ correct:"C"
+},
+{
+ id: "5.1.31",
+ question: "Đặt lệnh trong phiên mở cửa:",
+ answers:{A:"Chưa mua được",B:"Đã mua được",C:"Lệnh hợp lệ và mua được",D:"Hợp lệ nhưng chưa mua được"},
+ correct:"A"
+},
+{
+ id: "5.1.32",
+ question: "Môi giới thấy giá giảm mạnh phải:",
+ answers:{A:"Thông báo và xin ý kiến KH",B:"Tự bán luôn",C:"Không cần báo",D:"Khuyên mua thêm"},
+ correct:"A"
+},
+{
+ id: "5.1.33",
+ question: "Môi giới chứng khoán phải có:",
+ answers:{A:"Cao đẳng CK",B:"ĐH chuyên ngành CK",C:"ĐH kinh tế + chứng chỉ môi giới",D:"Cả A,B,C sai"},
+ correct:"C"
+},
+{
+ id: "5.1.34",
+ question: "Muốn bảo lãnh phát hành phải có nghiệp vụ:",
+ answers:{A:"Tư vấn",B:"Môi giới",C:"Tự doanh",D:"Cửa sau"},
+ correct:"C"
+},
+{
+ id: "5.1.35",
+ question: "Loại hình CTCK phổ biến:",
+ answers:{A:"TNHH, Cổ phần đại chúng",B:"Doanh nghiệp tư nhân, TNHH",C:"Doanh nghiệp tư nhân, Liên doanh",D:"TNHH, Liên doanh"},
+ correct:"A"
+},
+{
+ id: "5.1.36",
+ question: "Phát hành và bảo lãnh phát hành thuộc chức năng:",
+ answers:{A:"Cơ chế giá",B:"Huy động vốn linh hoạt",C:"Thanh khoản",D:"Điều tiết thị trường"},
+ correct:"B"
+},
+{
+ id: "5.1.37",
+ question: "Cung cấp cơ chế giá cho thị trường:",
+ answers:{A:"Khớp giá/khớp lệnh",B:"Bảo lãnh phát hành",C:"Tạo thanh khoản",D:"Điều tiết"},
+ correct:"A"
+},
+{
+ id: "5.1.38",
+ question: "Hoạt động tự doanh thuộc chức năng:",
+ answers:{A:"Thanh khoản",B:"Giá cả",C:"Điều tiết & bình ổn",D:"Điều tiết vốn"},
+ correct:"C"
+},
+{
+ id: "5.1.39",
+ question: "Chuyển đổi CK thành tiền là:",
+ answers:{A:"Thanh khoản",B:"Giá cả",C:"Điều tiết",D:"Điều tiết vốn"},
+ correct:"A"
+},
+{
+ id: "5.1.40",
+ question: "Sau khi mở tài khoản, môi giới phải:",
+ answers:{A:"Thu phí giao dịch",B:"Tư vấn",C:"Mở tài khoản lưu ký",D:"Thu phí khi chưa giao dịch"},
+ correct:"C"
+},
+{
+ id: "5.1.41",
+ question: "Khi tổ chức đủ điều kiện niêm yết, CTCK thực hiện:",
+ answers:{A:"Niêm yết",B:"Phát hành thứ cấp",C:"Bao tiêu",D:"Đấu giá"},
+ correct:"D"
+},
+{
+ id: "5.1.42",
+ question: "CTCK đóng vai trò:",
+ answers:{A:"Quản lý tổ chức phát hành",B:"Trung gian thị trường",C:"Cơ quan pháp luật",D:"Giám sát"},
+ correct:"B"
+},
+{
+ id: "5.2.1",
+ question: "Quỹ đầu tư là:",
+ answers:{A:"Định chế trung gian ngân hàng",B:"Định chế trung gian phi ngân hàng",C:"Sản phẩm của công ty quản lý quỹ",D:"A và C"},
+ correct:"B"
+},
+{
+ id: "5.2.2",
+ question: "Đối tượng đầu tư của quỹ:",
+ answers:{A:"Tiền",B:"Cổ phiếu",C:"Trái phiếu",D:"Tất cả A,B,C"},
+ correct:"D"
+},
+{
+ id: "5.2.3",
+ question: "Phân loại theo chủ thể đầu tư có:",
+ answers:{A:"2",B:"3",C:"4",D:"5"},
+ correct:"B"
+},
+{
+ id: "5.2.4",
+ question: "Quỹ dạng đóng phân loại theo:",
+ answers:{A:"Chủ thể",B:"Đối tượng",C:"Cơ cấu huy động vốn",D:"Thị trường tiền tệ"},
+ correct:"C"
+},
+{
+ id: "5.2.5",
+ question: "Có bao nhiêu tiêu chí phân loại quỹ đầu tư:",
+ answers:{A:"2",B:"3",C:"4",D:"5"},
+ correct:"C"
+},
+{
+ id: "5.2.6",
+ question: "Quỹ đầu tư tư nhân mang tính chất:",
+ answers:{A:"An toàn",B:"Mạo hiểm",C:"Tăng trưởng",D:"Tăng trưởng và thu nhập"},
+ correct:"B"
+},
+{
+ id: "5.2.7",
+ question: "Quỹ mạo hiểm đầu tư nhằm:",
+ answers:{A:"Nhận cổ tức",B:"Thâu tóm công ty",C:"Tăng trưởng vốn tối đa",D:"A+B"},
+ correct:"C"
+},
+{
+ id: "5.2.8",
+ question: "Điểm giống nhau của quỹ chọn ngành, chọn vốn, tăng trưởng, mạo hiểm:",
+ answers:{A:"Tối đa tăng trưởng vốn",B:"Cổ tức là chính",C:"Thâu tóm công ty",D:"Tăng giá trị cổ phần ổn định"},
+ correct:"A"
+},
+{
+ id: "5.2.9",
+ question: "Quỹ đầu tư chứng khoán phải đầu tư tối thiểu:",
+ answers:{A:"40%",B:"50%",C:"60%",D:"70%"},
+ correct:"C"
+},
+{
+ id: "5.2.10",
+ question: "Cổ phiếu quỹ:",
+ answers:{A:"Được chia cổ tức",B:"Công ty mua lại trên thị trường",C:"Có quyền biểu quyết",D:"Chưa phát hành"},
+ correct:"B"
+},
+{
+ id: "5.2.11",
+ question: "Không phải đặc điểm cổ phiếu quỹ:",
+ answers:{A:"Được trả cổ tức",B:"Không quyền biểu quyết",C:"Tỷ lệ giới hạn theo luật",D:"Phải công bố thông tin"},
+ correct:"A"
+},
+{
+ id: "5.2.12",
+ question: "Quỹ VF1 đầu tư vào:",
+ answers:{A:"Bluechip",B:"Penny",C:"Giá thấp hơn sàn",D:"Giá dưới tham chiếu"},
+ correct:"A"
+},
+{
+ id: "5.2.13",
+ question: "Quỹ đầu tư cân bằng:",
+ answers:{A:"Dung hòa rủi ro cổ phiếu ưu đãi",B:"Dung hòa cổ phiếu và trái phiếu",C:"Tỷ trọng cổ phiếu > trái phiếu",D:"A và C"},
+ correct:"B"
+},
+{
+ id: "5.2.14",
+ question: "Quỹ dạng đóng:",
+ answers:{A:"Phát hành một lần ra công chúng",B:"Mua lại theo yêu cầu NĐT",C:"Phát hành nhiều đợt",D:"Giá không phụ thuộc cung cầu"},
+ correct:"A"
+},
+{
+ id: "5.2.15",
+ question: "Công ty quản lý quỹ hoạt động dưới hình thức:",
+ answers:{A:"TNHH",B:"Cổ phần",C:"Cả A,B đúng",D:"Cả A,B sai"},
+ correct:"C"
+},
+{
+ id: "5.2.16",
+ question: "Hoạt động chính của công ty quản lý quỹ:",
+ answers:{A:"Tự đầu tư",B:"Quản lý quỹ theo ủy thác",C:"Lưu ký CK",D:"Quản lý nội bộ"},
+ correct:"B"
+},
+{
+ id: "5.2.17",
+ question: "Đơn vị cấp phép hoạt động cho công ty quản lý quỹ:",
+ answers:{A:"Sở KHĐT",B:"Ngân hàng TMCP",C:"Ủy ban Chứng khoán Nhà nước",D:"Cục QLTT"},
+ correct:"C"
+},
+{
+ id: "5.2.18",
+ question: "Nhà đầu tư góp vốn vào quỹ:",
+ answers:{A:"Không kiểm soát quyết định đầu tư hàng ngày",B:"Kiểm soát trực tiếp",C:"Trao quyền kiểm soát cho QLQ",D:"Cả A,B,C sai"},
+ correct:"A"
+},
+{
+ id: "5.2.19",
+ question: "Vai trò của quỹ đầu tư trong kinh tế:",
+ answers:{A:"Ổn định sơ cấp",B:"Phát triển thứ cấp",C:"Tăng huy động vốn nước ngoài",D:"Làm thị trường phức tạp"},
+ correct:"C"
+},
+{
+ id: "5.2.20",
+ question: "Vai trò đối với nhà đầu tư:",
+ answers:{A:"Đa dạng hóa, giảm rủi ro",B:"Chi phí cao",C:"Khó rút vốn",D:"Ít lựa chọn"},
+ correct:"A"
+},
+{
+ id: "5.2.21",
+ question: "Điểm giống nhau giữa quỹ mở và đóng:",
+ answers:{A:"Số CK lưu hành",B:"Chào bán & nơi giao dịch",C:"Mối quan hệ giá/NAV",D:"Cả A,B,C sai"},
+ correct:"D"
+},
+{
+ id: "5.2.22",
+ question: "Cơ cấu tổ chức quỹ đầu tư gồm:",
+ answers:{A:"HĐQT, NHGS, bảo lãnh, thuế",B:"HĐQT, NHGS, bảo lãnh, NĐT, môi giới",C:"HĐQT, NHGS, bảo lãnh, NĐT, QLQ",D:"HĐQT, NHGS, bảo lãnh, NĐT, QLQ, môi giới"},
+ correct:"C"
+},
+{
+ id: "5.2.23",
+ question: "Quy trình đầu tư: I-Xây danh mục; II-Mục tiêu; III-Nghiên cứu; IV-Rủi ro/lợi nhuận; V-Phân bổ tài sản",
+ answers:{A:"I,II,III,IV,V",B:"II,I,III,V,IV",C:"III,IV,II,V,I",D:"IV,III,II,V,I"},
+ correct:"B"
+},
+{
+ id: "5.2.24",
+ question: "Chi phí nào KHÔNG phải chi phí phát hành quỹ:",
+ answers:{A:"Tiếp thị",B:"In cáo bạch",C:"Phí đại lý CCQ",D:"Chi phí tư vấn đầu tư"},
+ correct:"D"
+}
+];
+
+
+function loadQuiz() {
+        const quizDiv = document.getElementById("quiz");
+        let html = "";
+
+        questions_5.forEach((q, i) => {
+            html += `
+                <div class="question" id="qBox${i}">
+                    <p><b>Câu ${i + 1}:</b> ${q.question}</p>
+                    ${Object.keys(q.answers).map(letter => `
+                        <label>
+                            <input type="radio" name="q${i}" value="${letter}" onclick="check(${i}, '${letter}')">
+                            ${letter}. ${q.answers[letter]}
+                        </label><br>
+                    `).join("")}
+                    <div id="answerKey${i}" class="answer-key"></div>
+                </div>
+            `;
+        });
+
+        quizDiv.innerHTML = html;
+    }
+
+    loadQuiz();
+
+    // ===== CHECK NGAY KHI CLICK =====
+    function check(index, selected) {
+        const q = questions_5[index];
+        const box = document.getElementById(`qBox${index}`);
+        const key = document.getElementById(`answerKey${index}`);
+
+        // Xóa class cũ
+        box.classList.remove("correct", "wrong");
+
+        if (selected === q.correct) {
+            box.classList.add("correct");
+            key.innerHTML = "✔ Chính xác!";
+        } else {
+            box.classList.add("wrong");
+            key.innerHTML = `✘ Sai! Đáp án đúng là: <b>${q.correct}. ${q.answers[q.correct]}</b>`;
+        }
+    }
+</script>
+
+</body>
+</html>
